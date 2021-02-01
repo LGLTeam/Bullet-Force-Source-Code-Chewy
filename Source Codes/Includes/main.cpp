@@ -284,7 +284,7 @@ void* hack_thread(void*) {
     octo_hook((void*)getRealOffset(0x5B8304), (void*)TabListItem_Update, (void**)&old_TabListItem_Update);
     octo_hook((void*)getRealOffset(0x60571C), (void*)MatchManager_UpdateFast, (void**)&old_MatchManager_UpdateFast);
 
-    patch.FireRate = Patch::Setup((void*)getAbsoluteAddress(0x54B3A0), (char*)"\01\00\xA0\xE3\x1E\xFF\x2F\xE1", 8); //Jump
+    patch.FireRate = Patch::Setup((void*)getAbsoluteAddress(0x54B3A0), (char*)"\01\00\xA0\xE3\x1E\xFF\x2F\xE1", 8); //CanShoot
     patch.Recoil1 = Patch::Setup(   (void*)getAbsoluteAddress(0x54C7C0), (char*)"\x00\xF0\x20\xE3\x1E\xFF\x2F\xE1", 8); //IncreaseGunRecoil
     patch.Recoil2 = Patch::Setup((void*)getAbsoluteAddress(0x54CF14), (char*)"\x00\xF0\x20\xE3\x1E\xFF\x2F\xE1", 8); //IncreaseCameraRecoil
     patch.Killstreak = Patch::Setup((void*)getAbsoluteAddress(0xF0F5A0), (char*)"\00\00\xA0\xE3\x1E\xFF\x2F\xE1", 8); //ResetCurrentKillStreak
