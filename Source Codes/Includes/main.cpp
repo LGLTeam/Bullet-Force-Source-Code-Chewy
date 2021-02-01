@@ -475,7 +475,7 @@ void init(JNIEnv * env, jclass obj, jobject thiz){
 void changeSeekBar(JNIEnv *env, jclass clazz, jint i, jint seekbarValue) {
     int li = (int) i;
     switch (li) {
-        case 10:
+        case 20:
             speedModifier = seekbarValue;
             break;
         default:
