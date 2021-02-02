@@ -2685,7 +2685,8 @@ namespace UnityEngine{
         int(*get_rotation)(void *_instance);
         DWORD get_localRotationOffset;
         int(*get_localRotation)(void *_instance);
-        DWORD get_localScaleOffset;
+        DWORD 
+            Offset;
         Vector3 (*get_localScale)(void *_instance);
         DWORD set_localScaleOffset;
         void (*set_localScale)(void *_instance, Vector3 value);
