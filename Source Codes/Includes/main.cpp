@@ -37,6 +37,8 @@ bool isHideGun = false;
 bool isFakeKills = false;
 bool isFakeDeaths = false;
 bool isName = false;
+bool isScaleUp = false;
+bool isScaleDown = false;
 bool allowspeed = false;
 bool isRestartGame = false;
 bool isFireRate = false;
@@ -125,7 +127,17 @@ void StartAimbot(void* myplayer, void *enemyplayer) {
 
 
 
+void MeScaleUp(void* myplayer) {
+    Vector3 mysize = UnityEngine::Transform.get_localScale(GetTransform(myplayer));
+    Vector3 mysize2 = mysize + Vector3(0.5,0.5,0.5);
+    UnityEngine::Transform.set_localScale(GetTransform(myplayer), mysize2);
+}
 
+void MeScaleDown(void* myplayer) {
+    Vector3 mysize = UnityEngine::Transform.get_localScale(GetTransform(myplayer));
+    Vector3 mysize2 = mysize + Vector3(-0.5, -0.5, -0.5);
+    UnityEngine::Transform.set_localScale(GetTransform(myplayer), mysize2);
+}
 
 
 bool get_isMine(void *Player){
@@ -174,6 +186,12 @@ void PlayerScript_UpdateFast(void *instance)
                 }
                 if(allowspeed) {
                     *(float *) ((uint64_t) MyPlayer + 0x8F4) = speedModifier;
+                }
+                if (isScaleUp) {
+                    MeScaleUp(instance);
+                }
+                if (isScaleDown) {
+                    MeScaleDown(instance);
                 }
             }
         }
@@ -329,6 +347,8 @@ jobjectArray getListFT(JNIEnv *env, jclass jobj){
             "Add Kills",
             "Add Deaths",
             "Name Changer",
+            "Player Scale Up",
+            "Player Scale Down",
             "Hide GunV2 (Hides other peoples weapons)",
             "FakeKills",
             "FakeDeaths",
@@ -398,18 +418,24 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
             isName = !isName;
             break;
         case 9:
-            isHideGun = !isHideGun;
+            isScaleUp = !isScaleUp;
             break;
         case 10:
-            isFakeKills = !isFakeKills;
+            isScaleDown = !isScaleDown;
             break;
         case 11:
-            isAddDeaths = !isFakeDeaths;
+            isHideGun = !isHideGun;
             break;
         case 12:
-            isRestartGame = !isRestartGame;
+            isFakeKills = !isFakeKills;
             break;
         case 13:
+            isAddDeaths = !isFakeDeaths;
+            break;
+        case 14:
+            isRestartGame = !isRestartGame;
+            break;
+        case 15:
             isFireRate = !isFireRate;
             if (isFireRate) {
                 patch.FireRate->Apply();
@@ -417,7 +443,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.FireRate->Reset();
             }
             break;
-        case 14:
+        case 16:
             isKillstreak2 = !isKillstreak2;
             if (isKillstreak2) {
                 patch.Killstreak->Apply();
@@ -425,7 +451,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.Killstreak->Reset();
             }
             break;
-        case 15:
+        case 17:
             isRadar = !isRadar;
             if (isRadar) {
                 patch.Radar->Apply();
@@ -433,7 +459,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.Radar->Reset();
             }
             break;
-        case 16:
+        case 18:
             isEspH = !isEspH;
             if (isEspH) {
                 patch.EspH->Apply();
@@ -441,7 +467,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.EspH->Reset();
             }
             break;
-        case 17:
+        case 19:
             isHasPerk = !isHasPerk;
             if (isHasPerk) {
                 patch.HasPerk->Apply();
@@ -449,7 +475,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.HasPerk->Reset();
             }
             break;
-        case 18:
+        case 20:
             isAntidead = !isAntidead;
             if (isAntidead) {
                 patch.Antidead->Apply();
@@ -457,7 +483,7 @@ void changeToggle(JNIEnv *env, jclass thisObj, jint number) {
                 patch.Antidead->Reset();
             }
             break;
-        case 19:
+        case 21:
             allowspeed = !allowspeed;
             break;;
         default:
@@ -475,7 +501,7 @@ void init(JNIEnv * env, jclass obj, jobject thiz){
 void changeSeekBar(JNIEnv *env, jclass clazz, jint i, jint seekbarValue) {
     int li = (int) i;
     switch (li) {
-        case 20:
+        case 22:
             speedModifier = seekbarValue;
             break;
         default:
