@@ -167,7 +167,7 @@ void PlayerScript_UpdateFast(void *instance)
                     *(float *) ((uint64_t) MyPlayer + 0x82C) = 0.0f;
                 }
                 if (isChatSpam) {
-                    SendChatMessage(MyPlayer, CreateMonoString("POLARMODS.COM noob"), Color(0, 1, 1, 1));
+                    SendChatMessage(MyPlayer, CreateMonoString("Whatever you want"), Color(0, 1, 1, 1));
                 }
                 if (isKillAssist) {
                     GotKillAssist(MyPlayer, 999.9f);
